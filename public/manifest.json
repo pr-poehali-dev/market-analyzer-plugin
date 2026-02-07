@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "MarketAnalyzer",
+  "version": "1.0.0",
+  "description": "Мощный плагин для анализа продаж на Wildberries, Ozon и Яндекс.Маркет",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://www.wildberries.ru/*",
+    "https://www.ozon.ru/*",
+    "https://market.yandex.ru/*",
+    "https://seller.wildberries.ru/*",
+    "https://seller.ozon.ru/*"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "favicon.svg",
+      "48": "favicon.svg",
+      "128": "favicon.svg"
+    }
+  },
+  "icons": {
+    "16": "favicon.svg",
+    "48": "favicon.svg",
+    "128": "favicon.svg"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.wildberries.ru/*",
+        "https://seller.wildberries.ru/*"
+      ],
+      "js": ["content-wildberries.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://www.ozon.ru/*",
+        "https://seller.ozon.ru/*"
+      ],
+      "js": ["content-ozon.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://market.yandex.ru/*"
+      ],
+      "js": ["content-yandex.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
